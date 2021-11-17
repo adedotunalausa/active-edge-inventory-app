@@ -15,10 +15,10 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    @Value("${wizer.app.jwtSecret}")
+    @Value("${active.edge.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${wizer.app.jwtExpirationMs}")
+    @Value("${active.edge.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {

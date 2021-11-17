@@ -22,7 +22,7 @@ public class SignupDTO {
     private String lastname;
 
     @NotBlank(message = "gender cannot be empty")
-    private Gender gender;
+    private String gender;
 
     @NotBlank(message = "email cannot be empty")
     @Size(max = 50)
