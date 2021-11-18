@@ -30,4 +30,4 @@ It contains the following requests
 
 ## Comprehensive documentation can be found below
 
-[Link here](https://documenter.getpostman.com/view/11267944/UVCCe3hA)
+[Click here to view documentation](https://documenter.getpostman.com/view/11267944/UVCCe3hA)
