@@ -1,11 +1,13 @@
 package com.activeedge.activeedgeinventoryapp.controller;
 
 import com.activeedge.activeedgeinventoryapp.dto.output.StandardResponseDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 public class Controller {
 
     @Autowired

@@ -7,6 +7,7 @@ import com.activeedge.activeedgeinventoryapp.dto.output.JwtResponseDTO;
 import com.activeedge.activeedgeinventoryapp.enums.Gender;
 import com.activeedge.activeedgeinventoryapp.enums.RoleType;
 import com.activeedge.activeedgeinventoryapp.enums.Status;
+import com.activeedge.activeedgeinventoryapp.exception.ResourceNotFoundException;
 import com.activeedge.activeedgeinventoryapp.model.Role;
 import com.activeedge.activeedgeinventoryapp.model.User;
 import com.activeedge.activeedgeinventoryapp.repository.RoleRepository;
@@ -108,7 +109,7 @@ public class UserServiceImplementation implements UserService {
     private void setRolesForNewUser(User newUser) {
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName(RoleType.USER)
-                .orElseThrow(() -> new RuntimeException("Error: Role not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Error: Role not found."));
         roles.add(userRole);
         newUser.setRoles(roles);
     }

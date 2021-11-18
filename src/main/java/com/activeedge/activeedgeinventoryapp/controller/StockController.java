@@ -21,4 +21,19 @@ public class StockController extends Controller {
         return responseWithUpdatedHttpStatus(stockService.createStock(dto));
     }
 
+    @GetMapping()
+    public BasicResponseDTO getAllStocks() {
+        return responseWithUpdatedHttpStatus(stockService.getAllStocks());
+    }
+
+    @GetMapping("/{stockId}")
+    public BasicResponseDTO getStockById(@PathVariable(name = "stockId") Long stockId) {
+        return responseWithUpdatedHttpStatus(stockService.getStockById(stockId));
+    }
+
+    @DeleteMapping("/{stockId}")
+    public BasicResponseDTO deleteStock(@PathVariable(name = "stockId") Long stockId) {
+        return responseWithUpdatedHttpStatus(stockService.deleteStock(stockId));
+    }
+
 }

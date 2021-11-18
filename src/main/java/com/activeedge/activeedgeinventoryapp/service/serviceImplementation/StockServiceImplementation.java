@@ -3,6 +3,7 @@ package com.activeedge.activeedgeinventoryapp.service.serviceImplementation;
 import com.activeedge.activeedgeinventoryapp.dto.input.StockInputDTO;
 import com.activeedge.activeedgeinventoryapp.dto.output.BasicResponseDTO;
 import com.activeedge.activeedgeinventoryapp.enums.Status;
+import com.activeedge.activeedgeinventoryapp.exception.ResourceNotFoundException;
 import com.activeedge.activeedgeinventoryapp.model.Stock;
 import com.activeedge.activeedgeinventoryapp.repository.StockRepository;
 import com.activeedge.activeedgeinventoryapp.service.StockService;
@@ -10,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -44,16 +47,55 @@ public class StockServiceImplementation implements StockService {
 
     @Override
     public BasicResponseDTO getAllStocks() {
-        return null;
+        try {
+
+            return new BasicResponseDTO(Status.SUCCESS, stockRepository.findAll());
+
+        } catch (Exception ex) {
+            log.error("There was an error while getting all stocks: {}", ex.getMessage());
+            return new BasicResponseDTO(ex.getMessage());
+        }
     }
 
     @Override
     public BasicResponseDTO getStockById(Long stockId) {
-        return null;
+        try {
+            Stock stock = getStock(stockId);
+
+            if (!Objects.nonNull(stock)) {
+                return new BasicResponseDTO(Status.NOT_FOUND, "Error: Stock not found");
+            }
+
+            return new BasicResponseDTO(Status.SUCCESS, stock);
+
+        } catch (Exception ex) {
+            log.error("There was an error while getting stock: {}", ex.getMessage());
+            return new BasicResponseDTO(ex.getMessage());
+        }
     }
 
     @Override
     public BasicResponseDTO deleteStock(Long stockId) {
-        return null;
+        try {
+
+            Stock stock = getStock(stockId);
+
+            if (!Objects.nonNull(stock)) {
+                return new BasicResponseDTO(Status.NOT_FOUND, "Error: Stock not found");
+            }
+
+            stockRepository.deleteById(stockId);
+
+            return new BasicResponseDTO(Status.SUCCESS, "Stock was successfully deleted");
+
+        } catch (Exception ex) {
+            log.error("There was an error while deleting stock: {}", ex.getMessage());
+            return new BasicResponseDTO(ex.getMessage());
+        }
+    }
+
+    private Stock getStock(Long stockId) {
+        return stockRepository.findById(stockId)
+                .orElseThrow(() -> new ResourceNotFoundException("Error: Stock not found"));
     }
 }
