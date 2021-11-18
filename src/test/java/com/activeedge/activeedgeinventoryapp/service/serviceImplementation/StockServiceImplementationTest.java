@@ -3,6 +3,7 @@ package com.activeedge.activeedgeinventoryapp.service.serviceImplementation;
 import com.activeedge.activeedgeinventoryapp.dto.input.AmountInputDTO;
 import com.activeedge.activeedgeinventoryapp.dto.input.StockInputDTO;
 import com.activeedge.activeedgeinventoryapp.dto.output.BasicResponseDTO;
+import com.activeedge.activeedgeinventoryapp.enums.Status;
 import com.activeedge.activeedgeinventoryapp.model.Amount;
 import com.activeedge.activeedgeinventoryapp.model.Stock;
 import com.activeedge.activeedgeinventoryapp.repository.StockRepository;
@@ -48,7 +49,18 @@ class StockServiceImplementationTest {
     }
 
     @Test
-    void updateStock() {
+    void cnaUpdateStock() {
+        Stock stock = getStock();
+
+        StockInputDTO stockInputDTO = getStockDTO();
+
+        when(stockRepository.findById(1L)).thenReturn(Optional.of(stock));
+
+        BasicResponseDTO response = stockServiceImplementationUnderTest.updateStock(stockInputDTO, 1L);
+
+        assertThat(response.getResponseData()).isNotNull();
+
+        assertEquals(Status.SUCCESS, response.getStatus());
     }
 
     @Test

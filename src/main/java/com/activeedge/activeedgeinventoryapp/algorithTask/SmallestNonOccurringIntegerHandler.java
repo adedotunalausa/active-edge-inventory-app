@@ -1,4 +1,4 @@
-package com.activeedge.activeedgeinventoryapp.task;
+package com.activeedge.activeedgeinventoryapp.algorithTask;
 
 import java.util.Arrays;
 

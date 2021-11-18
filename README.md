@@ -26,4 +26,4 @@ It contains the following requests
 
 ## Algorithm Solution
 
-    The algorithm solution is included in the task folder. 
+    The algorithm solution is included in the algorithmTask folder. 
