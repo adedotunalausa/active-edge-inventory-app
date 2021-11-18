@@ -21,6 +21,11 @@ public class StockController extends Controller {
         return responseWithUpdatedHttpStatus(stockService.createStock(dto));
     }
 
+    @PutMapping("/{stockId}")
+    public BasicResponseDTO updateStock(@PathVariable(name = "stockId") Long stockId, @RequestBody @Valid StockInputDTO dto) {
+        return responseWithUpdatedHttpStatus(stockService.updateStock(dto, stockId));
+    }
+
     @GetMapping()
     public BasicResponseDTO getAllStocks() {
         return responseWithUpdatedHttpStatus(stockService.getAllStocks());

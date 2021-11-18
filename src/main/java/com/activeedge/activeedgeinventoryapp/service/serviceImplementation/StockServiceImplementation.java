@@ -4,6 +4,7 @@ import com.activeedge.activeedgeinventoryapp.dto.input.StockInputDTO;
 import com.activeedge.activeedgeinventoryapp.dto.output.BasicResponseDTO;
 import com.activeedge.activeedgeinventoryapp.enums.Status;
 import com.activeedge.activeedgeinventoryapp.exception.ResourceNotFoundException;
+import com.activeedge.activeedgeinventoryapp.model.Amount;
 import com.activeedge.activeedgeinventoryapp.model.Stock;
 import com.activeedge.activeedgeinventoryapp.repository.StockRepository;
 import com.activeedge.activeedgeinventoryapp.service.StockService;
@@ -35,14 +36,35 @@ public class StockServiceImplementation implements StockService {
 
         } catch (Exception ex) {
             log.error("There was an error while creating stock: {}", ex.getMessage());
-            return new BasicResponseDTO(Status.FAILED_VALIDATION, ex.getMessage());
+            return new BasicResponseDTO(Status.ERROR, ex.getMessage());
         }
 
     }
 
     @Override
     public BasicResponseDTO updateStock(StockInputDTO stockUpdates, Long stockId) {
-        return null;
+        try {
+
+            Stock currentStock = getStock(stockId);
+            Stock stock = updateCurrentStock(stockUpdates, currentStock);
+
+            stockRepository.save(stock);
+
+            return new BasicResponseDTO(Status.SUCCESS, stock);
+
+        } catch (Exception ex) {
+            log.error("There was an error while updating stock: {}", ex.getMessage());
+            return new BasicResponseDTO(Status.ERROR, ex.getMessage());
+        }
+    }
+
+    private Stock updateCurrentStock(StockInputDTO stockUpdates, Stock currentStock) {
+        currentStock.setName(stockUpdates.getName());
+        currentStock.setCurrentPrice(modelMapper.map(stockUpdates.getCurrentPrice(), Amount.class));
+        currentStock.setQuantityInStock(stockUpdates.getQuantityInStock());
+        currentStock.setReorderLevel(stockUpdates.getReorderLevel());
+        currentStock.setDiscontinued(stockUpdates.isDiscontinued());
+        return currentStock;
     }
 
     @Override
@@ -53,7 +75,7 @@ public class StockServiceImplementation implements StockService {
 
         } catch (Exception ex) {
             log.error("There was an error while getting all stocks: {}", ex.getMessage());
-            return new BasicResponseDTO(ex.getMessage());
+            return new BasicResponseDTO(Status.ERROR, ex.getMessage());
         }
     }
 
@@ -70,7 +92,7 @@ public class StockServiceImplementation implements StockService {
 
         } catch (Exception ex) {
             log.error("There was an error while getting stock: {}", ex.getMessage());
-            return new BasicResponseDTO(ex.getMessage());
+            return new BasicResponseDTO(Status.ERROR, ex.getMessage());
         }
     }
 
@@ -90,7 +112,7 @@ public class StockServiceImplementation implements StockService {
 
         } catch (Exception ex) {
             log.error("There was an error while deleting stock: {}", ex.getMessage());
-            return new BasicResponseDTO(ex.getMessage());
+            return new BasicResponseDTO(Status.ERROR, ex.getMessage());
         }
     }
 
