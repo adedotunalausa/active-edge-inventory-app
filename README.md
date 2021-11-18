@@ -26,4 +26,8 @@ It contains the following requests
 
 ## Algorithm Solution
 
-    The algorithm solution is included in the algorithmTask folder. 
+    The algorithm solution is included in the algorithmTask folder.
+
+## Comprehensive documentation can be found here
+
+    https://documenter.getpostman.com/view/11267944/UVCCe3hA
