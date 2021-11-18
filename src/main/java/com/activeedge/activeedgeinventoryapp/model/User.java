@@ -27,14 +27,11 @@ import java.util.Set;
 )
 public class User extends BaseModel {
 
-    @NotBlank
     @Size(max = 20)
     private String username;
 
-    @NotBlank
     private String firstname;
 
-    @NotBlank
     private String lastname;
 
     private Gender gender;
@@ -47,12 +44,10 @@ public class User extends BaseModel {
 
     private String country;
 
-    @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
-    @NotBlank
     @Size(max = 120)
     @JsonIgnore
     private String password;
