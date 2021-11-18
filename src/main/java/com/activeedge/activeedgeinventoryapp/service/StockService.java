@@ -7,4 +7,12 @@ public interface StockService {
 
     BasicResponseDTO createStock(StockInputDTO newStock);
 
+    BasicResponseDTO updateStock(StockInputDTO stockUpdates, Long stockId);
+
+    BasicResponseDTO getAllStocks();
+
+    BasicResponseDTO getStockById(Long stockId);
+
+    BasicResponseDTO deleteStock(Long stockId);
+
 }

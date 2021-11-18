@@ -36,4 +36,24 @@ public class StockServiceImplementation implements StockService {
         }
 
     }
+
+    @Override
+    public BasicResponseDTO updateStock(StockInputDTO stockUpdates, Long stockId) {
+        return null;
+    }
+
+    @Override
+    public BasicResponseDTO getAllStocks() {
+        return null;
+    }
+
+    @Override
+    public BasicResponseDTO getStockById(Long stockId) {
+        return null;
+    }
+
+    @Override
+    public BasicResponseDTO deleteStock(Long stockId) {
+        return null;
+    }
 }
