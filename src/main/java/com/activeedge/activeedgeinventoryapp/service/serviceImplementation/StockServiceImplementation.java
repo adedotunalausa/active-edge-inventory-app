@@ -32,6 +32,7 @@ public class StockServiceImplementation implements StockService {
             Stock stock = modelMapper.map(newStock, Stock.class);
             stockRepository.save(stock);
             log.info("New stock {} successfully added", stock.getName());
+            log.info("Stock current price: {}", stock.getCurrentPrice().getCurrency());
             log.info("Stock current price: {}", stock.getCurrentPrice().getValue());
             return new BasicResponseDTO(Status.CREATED, stock);
 
